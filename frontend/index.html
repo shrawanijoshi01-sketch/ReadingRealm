@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reading Realm - Your Magical Story Begins Here</title>
+<!-- Google Fonts: Playfair Display for Serifs, Plus Jakarta Sans for UI -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#3d0026",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#b4136d",
+                        "tertiary-container": "#9358cd",
+                        "on-tertiary-fixed-variant": "#62259b",
+                        "secondary-fixed-dim": "#ffafd3",
+                        "surface-container-highest": "#f5dce3",
+                        "surface-container-high": "#fbe2e9",
+                        "on-tertiary-fixed": "#2c0051",
+                        "tertiary": "#783eb2",
+                        "on-background": "#25181d",
+                        "secondary-fixed": "#ffd8e7",
+                        "on-primary-fixed": "#3e0022",
+                        "on-surface": "#25181d",
+                        "outline": "#8b7079",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#8c0053",
+                        "on-secondary-container": "#76014e",
+                        "primary-fixed-dim": "#ffb0cd",
+                        "inverse-surface": "#3b2c31",
+                        "surface-dim": "#ecd4db",
+                        "surface-bright": "#fff8f8",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#debec8",
+                        "on-secondary-fixed-variant": "#85145a",
+                        "primary": "#b10e6b",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-fixed": "#f0dbff",
+                        "secondary": "#a43073",
+                        "tertiary-fixed-dim": "#ddb8ff",
+                        "surface-container": "#ffe8ee",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f8",
+                        "primary-container": "#d23284",
+                        "secondary-container": "#fc79bd",
+                        "background": "#fff8f8",
+                        "surface-container-low": "#fff0f3",
+                        "primary-fixed": "#ffd9e4",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#f5dce3",
+                        "on-surface-variant": "#574048",
+                        "inverse-primary": "#ffb0cd",
+                        "inverse-on-surface": "#ffecf1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "12px",
+                        "2xl": "24px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-xl": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "20px",
+                        "stack-xs": "8px",
+                        "margin-desktop": "64px",
+                        "unit": "4px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes float-butterfly {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -50px) rotate(15deg); }
+            66% { transform: translate(-20px, -80px) rotate(-10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .animate-butterfly {
+            animation: float-butterfly 8s ease-in-out infinite;
+        }
+
+        .animate-twinkle {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .ethereal-gradient {
+            background: linear-gradient(135deg, #b10e6b 0%, #783eb2 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-white/20 shadow-sm flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-3">
+<img alt="Reading Realm" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ1Oa6TQ0ekuWgSYdP6K-TvaX_x1L6X30PXau6I-5xcSMqvA0EBqDnVrvywcSgwQbi-V3Mab-xe4IJQdOhJYVtDOq56wpM1bq_PgIEHc5KYEBkQb37jVbUnYaFBwasp1lFqa7bQ1iKRhEYfXJSJZIdPt_dNqQy7KbZwb6nYFe0RMOy91XNQS_E0pHRLeV83Yb-cGXg1ZXL_MXtadyKW8wVmcEAQRr5h6G_gZjSDwraKRWPV9l76-iegp38yJNdrDHSQQPCMuJKvwsq"/>
+<span class="font-display-lg text-headline-md text-primary dark:text-primary-fixed-dim tracking-tight">Reading Realm</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-primary-container/10 transition-colors rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-primary-container/10 transition-colors rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pb-24">
+
+
+<!-- Hero Section -->
+<section class="relative min-h-screen w-full flex items-center justify-center overflow-visible">
+<!-- Shader Background -->
+ 
+<div class="absolute inset-0 -z-10">
+    <canvas 
+        id="shader-canvas-ANIMATION_5"
+        class="w-full h-screen">
+    </canvas>
+</div>
+<!-- STITCH_SHADER_START:ANIMATION_5 class="absolute inset-0 w-full h-full" -->
+ </section>
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_5" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_5');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Create a flowing gradient background
+    vec3 color1 = vec3(0.925, 0.282, 0.6); // #EC4899 Rose Pink
+    vec3 color2 = vec3(0.753, 0.518, 0.988); // #C084FC Lavender
+    vec3 color3 = vec3(1.0, 0.976, 0.988); // #FFF9FC Soft Blush White
+    
+    float noise = sin(uv.x * 3.0 + u_time * 0.5) * cos(uv.y * 2.0 + u_time * 0.3);
+    float mixFactor = uv.y + noise * 0.2;
+    
+    vec3 finalColor = mix(color1, color2, clamp(mixFactor * 1.5 - 0.25, 0.0, 1.0));
+    finalColor = mix(finalColor, color3, clamp(mixFactor * 1.5 - 0.75, 0.0, 1.0));
+    
+    // Add subtle sparkles
+    float sparkle = pow(fract(sin(dot(uv + u_time * 0.01, vec2(12.9898, 78.233))) * 43758.5453), 20.0);
+    finalColor += sparkle * 0.15;
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+
+
+<!-- STITCH_SHADER_END:ANIMATION_5 -->
+
+
+
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<!-- Floating Decorative Elements -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 animate-butterfly">
+<svg class="opacity-40" fill="none" height="40" stroke="white" stroke-width="1.5" viewbox="0 0 24 24" width="40">
+<path d="M12 10C12 10 9 6 6 6C3 6 2 8 2 10C2 12 4 14 12 20C20 14 22 12 22 10C22 8 21 6 18 6C15 6 12 10 12 10Z"></path>
+</svg>
+</div>
+<div class="absolute top-1/3 right-1/4 animate-twinkle" style="animation-delay: 1s;">
+<span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">spark</span>
+</div>
+<div class="absolute bottom-1/4 left-1/3 animate-twinkle" style="animation-delay: 2.5s;">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Hero Content -->
+<div class="relative z-10 w-full flex flex-col items-center text-center px-6"></div>
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6 animate-fade-in">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-widest">AI Concierge Active</span>
+</div>
+<h1 class="font-display-lg text-headline-lg md:text-display-lg text-white my-12 leading-tight drop-shadow-lg text-center">
+    Your Magical Story <br class="hidden md:block"/> Begins Here
+</h1>
+<p class="font-body-lg text-white/90 mb-10 max-w-xl mx-auto drop-shadow-md">
+                    "Welcome back! I've curated a few new dimensions for you to explore based on your love for ethereal mysteries."
+                </p>
+<!-- Buttons Row -->
+<!-- Centered Buttons Row -->
+<div class="w-full flex flex-col sm:flex-row gap-4 justify-center items-center text-center mx-auto mb-10">
+    <button onclick="window.location.href = window.location.protocol.startsWith('http') ? '/books' : 'books.html'" class="ethereal-gradient text-white px-8 py-4 rounded-2xl font-label-md text-label-md shadow-[0_10px_30px_rgba(177,14,107,0.3)] hover:scale-105 active:scale-95 transition-all min-w-[180px] text-center">
+        START DISCOVERY
+    </button>
+
+    <button onclick="window.location.href = window.location.protocol.startsWith('http') ? '/books' : 'books.html'" class="glass-card text-white px-8 py-4 rounded-2xl font-label-md text-label-md hover:bg-white/20 active:scale-95 transition-all min-w-[180px] text-center">
+        MY LIBRARY
+    </button>
+</div>
+
+
+
+    
+
+
+
+<!-- AI Recommendation Section -->
+<section class="w-full flex justify-center items-center mt-6">
+
+    <div class="glass-card w-full max-w-2xl px-8 py-6 rounded-3xl text-center">
+
+        <h2 class="text-2xl font-semibold text-on-surface mb-1">
+            ✨ AI Book Recommendation
+        </h2>
+
+        <p class="text-on-surface-variant mb-4">
+            Enter your favourite book and discover similar books instantly.
+        </p>
+
+
+        <input
+            id="bookInput"
+            type="text"
+            placeholder="Enter book name..."
+            class="w-full max-w-md mx-auto block rounded-2xl border border-primary/20 bg-white/80 px-4 py-2.5 text-center focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+        />
+
+
+        <button
+            id="recommendBtn"
+            class="mt-4 ethereal-gradient text-white px-8 py-2.5 rounded-2xl font-semibold hover:scale-105 transition-transform"
+        >
+            Get AI Recommendations
+        </button>
+
+
+        <div
+            id="recommendations"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 justify-center"
+        ></div>
+
+    </div>
+
+</section>
+<!-- Category Horizontal Scroll -->
+<section class="mt-stack-md px-margin-mobile md:px-margin-desktop text-center">
+  
+  <!-- Centered Section Header -->
+  <div class="flex flex-col items-center justify-center gap-1 mb-6">
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">Browse Realms</h2>
+    <button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+  </div>
+
+  <!-- Centered Cards Container -->
+  <div class="flex justify-center flex-wrap gap-4 pb-6 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 text-left">
+    
+    <!-- Fantasy -->
+    <div class="flex-shrink-0 w-44 h-56 rounded-2xl bg-[#FFE4E6] p-6 flex flex-col justify-between group cursor-pointer hover:-translate-y-2 transition-transform shadow-sm">
+      <span class="text-3xl">💖</span>
+      <div>
+        <h3 class="font-headline-sm text-lg text-[#881337]">Fantasy</h3>
+        <p class="text-xs text-[#881337]/60">1.2k Stories</p>
+      </div>
+    </div>
+
+    <!-- Biography -->
+    <div class="flex-shrink-0 w-44 h-56 rounded-2xl bg-[#E0F2FE] p-6 flex flex-col justify-between group cursor-pointer hover:-translate-y-2 transition-transform shadow-sm">
+      <span class="text-3xl">📚</span>
+      <div>
+        <h3 class="font-headline-sm text-lg text-[#0369A1]">Biography</h3>
+        <p class="text-xs text-[#0369A1]/60">840 Stories</p>
+      </div>
+    </div>
+
+    <!-- Disney -->
+    <div class="flex-shrink-0 w-44 h-56 rounded-2xl bg-[#F3E8FF] p-6 flex flex-col justify-between group cursor-pointer hover:-translate-y-2 transition-transform shadow-sm">
+      <span class="text-3xl">🏰</span>
+      <div>
+        <h3 class="font-headline-sm text-lg text-[#6B21A8]">Disney</h3>
+        <p class="text-xs text-[#6B21A8]/60">500+ Tales</p>
+      </div>
+    </div>
+
+    <!-- Self Help -->
+    <div class="flex-shrink-0 w-44 h-56 rounded-2xl bg-[#FEF3C7] p-6 flex flex-col justify-between group cursor-pointer hover:-translate-y-2 transition-transform shadow-sm">
+      <span class="text-3xl">✨</span>
+      <div>
+        <h3 class="font-headline-sm text-lg text-[#92400E]">Self Help</h3>
+        <p class="text-xs text-[#92400E]/60">2k Guides</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- Featured Books Section -->
+<section class="mt-stack-xl px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Curated For Your Spirit</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Book Card 1 -->
+<div class="group flex flex-col">
+<div class="relative aspect-[2/3] rounded-2xl overflow-hidden mb-4 shadow-[0_8px_30px_rgba(236,72,153,0.08)] group-hover:shadow-[0_15px_40px_rgba(236,72,153,0.15)] transition-all duration-500">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A beautiful book cover with ethereal watercolor aesthetics featuring a lone swan on a misty lavender lake under a glowing golden moon. The style is modern minimalist fantasy with rose pink accents and elegant serif typography. Soft volumetric lighting creates a magical, serene atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJplc0DUAy7MidAyH61ELZ31om8aoBJCX_15jesuitvQteaaeiH6A4nGj6dy2t6Lgs_kCJh1NqA_inTxjfNt-AIH3oN-LXPDBtGiqbHgZ5bVKPF2qMpIoT5DE7qAsmnaeH8orVgVg5300VZgWRSM4GdGSX9_JRaHYcg_Qt7OAAH38tB_k9sRX4FEN6jhPaeAWf8JM5EwvmaMHQkgGfW7WZVbyvVsiJk703JC-rJ7MOELAUxhxF5Ex03EJmk_ZPpf_ETGeLQfiu4Fjd"/>
+<div class="absolute bottom-0 left-0 w-full p-4 glass-card translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<button class="w-full py-2 bg-primary text-white rounded-xl text-label-md font-label-md">Read Now</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-lg mb-1 text-on-surface group-hover:text-primary transition-colors">The Lavender Lake</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Elara Vance</p>
+</div>
+<!-- Book Card 2 -->
+<div class="group flex flex-col">
+<div class="relative aspect-[2/3] rounded-2xl overflow-hidden mb-4 shadow-[0_8px_30px_rgba(236,72,153,0.08)] group-hover:shadow-[0_15px_40px_rgba(236,72,153,0.15)] transition-all duration-500">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An artistic book cover showing a silhouette of an ancient Victorian library floating in the clouds. Soft pastel pinks and golds dominate the color palette. Intricate line art of stars and constellations swirls around the central building. Premium high-end editorial book cover style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6-JqBP8VITd77RoA-6hqgG1aHHk-Rhk5J4lblzOK4uHYMAqx4MMM8oaBcnKbXe4Bxjw15hrGJ7fmfM-qjh3_fBeBsJ-AOc1B4zG9AlCtFiIpNeJRCcMLL5zeiwiGQ82O4mXh6GC85GRNlBHi68wff7fIIgpVjh8FG3O4sCeoM125IbLCwloUoaUxyV7ktMLHRapFMAdMtUUyFPNvDjgW9AiiaiseAxVcMs_dOZu-1c0iSN7DhBZIVh7rTmcvxPOT8vsFWs_oh6K00"/>
+<div class="absolute bottom-0 left-0 w-full p-4 glass-card translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<button class="w-full py-2 bg-primary text-white rounded-xl text-label-md font-label-md">Read Now</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-lg mb-1 text-on-surface group-hover:text-primary transition-colors">Stellar Whispers</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Julian Thorne</p>
+</div>
+<!-- Book Card 3 -->
+<div class="group flex flex-col">
+<div class="relative aspect-[2/3] rounded-2xl overflow-hidden mb-4 shadow-[0_8px_30px_rgba(236,72,153,0.08)] group-hover:shadow-[0_15px_40px_rgba(236,72,153,0.15)] transition-all duration-500">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Modern self-help book cover titled Inner Glow. Features a minimalist abstract sun symbol in gold foil on a textured soft blush pink background. Very clean, spacious layout with elegant sans-serif typography. Contemporary ethereal wellness aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZKUAdAh5gf1q_RNV4qgghdydMLMny1Owgsw3DZOTL5Enq0FEHQyHQyBQGn1cBCMKuK3BPKa7XR4gWk8Ogq7eZUTxu6nQkbIWdCT_xmM0USrMjhonpuK5ifhXkuUyVmSGj69_sIUtLV5y040kKbRIFJUuW9bMwgGu25UWhJiaJzacLGc3pdFYn-4QVpVUyT0ENVbOOVFSvM8jFsGcPmSB88eEnQ6p5ybnE35dagKx8aEezGlC4WorneZQ-Kn24f9lsPG2kBGOn1dmK"/>
+<div class="absolute bottom-0 left-0 w-full p-4 glass-card translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<button class="w-full py-2 bg-primary text-white rounded-xl text-label-md font-label-md">Read Now</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-lg mb-1 text-on-surface group-hover:text-primary transition-colors">Inner Glow</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Dr. Mira Ray</p>
+</div>
+<!-- Book Card 4 -->
+<div class="group flex flex-col">
+<div class="relative aspect-[2/3] rounded-2xl overflow-hidden mb-4 shadow-[0_8px_30px_rgba(236,72,153,0.08)] group-hover:shadow-[0_15px_40px_rgba(236,72,153,0.15)] transition-all duration-500">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A whimsical Disney-inspired book cover depicting a glowing carriage made of crystal and roses traveling through an enchanted forest at dawn. Soft pink mist, shimmering light particles, and vibrant florals. A cinematic, magical storybook illustration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu1cJjb30ghknIkiYw7yIDyrFARmhO8NMN_mnmc_SnC0hhB2H0Jff5PuEl8oiRa0pGwtDW8kXAL-gH7dvpzOElV718BTHb6qU1jMIYGWDhtHv2RXQ82k7fcVQCeFRX72Fr-yNx3wgzQAoo823R5JjFyjrM7A_r0B8XQ0TFhO0zCeDth75Hw187cVZn9xsuzAcdVfSp-eJWXqq02jOyISIC27D5tRoi-vKckWNSWaUf_lHWwiygSVbYX1MR_on5LUUiMRqeE1PyRFHC"/>
+<div class="absolute bottom-0 left-0 w-full p-4 glass-card translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<button class="w-full py-2 bg-primary text-white rounded-xl text-label-md font-label-md">Read Now</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-lg mb-1 text-on-surface group-hover:text-primary transition-colors">Enchanted Dawn</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Celia Belle</p>
+</div>
+</div>
+</section>
+<!-- AI Assistant Banner -->
+<section class="mt-stack-xl px-margin-mobile md:px-margin-desktop">
+<div class="relative w-full rounded-2xl ethereal-gradient p-8 md:p-12 overflow-hidden">
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[200px] text-white">auto_awesome</span>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="font-display-lg text-headline-lg text-white mb-4">Don't know what to read?</h2>
+<p class="font-body-lg text-white/80 mb-8">Tell me your mood, and I'll find the perfect magical realm for your current state of mind.</p>
+<div class="flex flex-col md:flex-row gap-4">
+<input class="flex-grow bg-white/10 border-white/20 text-white placeholder-white/50 rounded-xl px-6 py-4 focus:ring-2 focus:ring-white/50 focus:border-transparent outline-none" placeholder="I'm feeling nostalgic and want something cozy..." type="text"/>
+<button class="bg-white text-primary px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+                            ASK AI GUIDE <span class="material-symbols-outlined text-sm">spark</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-2xl shadow-[0_-8px_30px_rgba(236,72,153,0.08)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md mt-1">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-all active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md mt-1">AI Guide</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-all active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-label-md text-label-md mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-all active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="font-label-md text-label-md mt-1">Rewards</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for category cards
+        document.querySelectorAll('.flex-shrink-0').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Sticky header background blur change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+    <script>
+document.getElementById("recommendBtn").addEventListener("click", async () => {
+
+    const book = document.getElementById("bookInput").value;
+
+    if(book===""){
+        alert("Please enter a book name!");
+        return;
+    }
+
+    try{
+        const response = await fetch(`http://127.0.0.1:8000/recommend/${encodeURIComponent(book)}`);
+
+        const books = await response.json();
+
+        let output="";
+
+        books.forEach(book=>{
+            output+=`
+            <div style="
+                background:white;
+                padding:20px;
+                margin:15px;
+                border-radius:18px;
+                box-shadow:0 8px 20px rgba(255,105,180,.25);
+            ">
+                <h3>${book.title}</h3>
+                <p><b>Author:</b> ${book.author}</p>
+                <p><b>Genre:</b> ${book.genre}</p>
+                <p>⭐ ${book.rating}</p>
+                <p>₹${book.price}</p>
+            </div>`;
+        });
+
+        document.getElementById("recommendations").innerHTML=output;
+
+    }catch(err){
+        alert("Backend is not running.");
+    }
+
+});
+</script>
+</body></html>

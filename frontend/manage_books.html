@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Manage Books | Reading Realm</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+font-family:'Plus Jakarta Sans';
+background:linear-gradient(135deg,#fff0f5,#fde7f3,#f4e8ff);
+min-height:100vh;
+}
+
+.title{
+font-family:'Playfair Display';
+}
+
+.glass{
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.4);
+}
+
+.gradient{
+background:linear-gradient(135deg,#c21874,#8e44ad);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="max-w-7xl mx-auto py-10 px-6">
+
+<div class="flex justify-between mb-6">
+
+<a href="/admin"
+class="gradient text-white px-6 py-3 rounded-2xl font-bold">
+← Dashboard
+</a>
+
+<a href="/add-book"
+class="gradient text-white px-6 py-3 rounded-2xl font-bold">
+➕ Add Book
+</a>
+
+</div>
+
+<div class="glass rounded-3xl shadow-2xl p-8">
+
+<h1 class="title text-5xl text-pink-700 mb-8">
+📚 Manage Books
+</h1>
+
+<div class="overflow-x-auto">
+
+<table class="w-full">
+
+<thead>
+
+<tr class="border-b">
+
+<th class="text-left p-4">Cover</th>
+<th class="text-left p-4">Title</th>
+<th class="text-left p-4">Author</th>
+<th class="text-left p-4">Genre</th>
+<th class="text-left p-4">Price</th>
+<th class="text-left p-4">Rating</th>
+<th class="text-center p-4">Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="bookTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+async function loadBooks(){
+
+const res=await fetch("/api/manage-books");
+
+const books=await res.json();
+
+let html="";
+
+books.forEach(book=>{
+
+html+=`
+
+<tr class="border-b hover:bg-pink-50">
+
+<td class="p-4">
+<img src="/${book.image}"
+style="width:60px;height:90px;border-radius:10px;">
+</td>
+
+<td class="p-4 font-semibold">
+${book.title}
+</td>
+
+<td class="p-4">
+${book.author}
+</td>
+
+<td class="p-4">
+${book.genre}
+</td>
+
+<td class="p-4">
+₹${book.price}
+</td>
+
+<td class="p-4">
+⭐ ${book.rating}
+</td>
+
+<td class="p-4 text-center">
+
+<button
+onclick="editBook(${book.id})"
+class="bg-yellow-400 px-4 py-2 rounded-xl mr-2">
+
+✏ Edit
+
+</button>
+
+<button
+onclick="deleteBook(${book.id})"
+class="bg-red-500 text-white px-4 py-2 rounded-xl">
+
+🗑 Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("bookTable").innerHTML=html;
+
+}
+
+function editBook(id){
+
+window.location.href="/edit-book/"+id;
+
+}
+
+function deleteBook(id){
+
+if(confirm("Delete this book?")){
+
+fetch("/api/delete-book/"+id,{
+method:"DELETE"
+})
+
+.then(()=>{
+
+loadBooks();
+
+});
+
+}
+
+}
+
+loadBooks();
+
+</script>
+
+</body>
+</html>

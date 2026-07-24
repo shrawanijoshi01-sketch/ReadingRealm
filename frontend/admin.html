@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Realm Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:linear-gradient(135deg,#fff0f5,#fde7f3,#f4e8ff);
+    min-height:100vh;
+}
+
+.title{
+    font-family:'Playfair Display',serif;
+}
+
+.glass{
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.4);
+}
+
+.gradient{
+    background:linear-gradient(135deg,#c21874,#8e44ad);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="max-w-7xl mx-auto px-8 py-10">
+
+<!-- Header -->
+
+<div class="glass rounded-3xl p-8 shadow-xl flex justify-between items-center">
+
+<div>
+
+<h1 class="title text-5xl font-bold text-pink-700">
+📚 Reading Realm
+</h1>
+
+<p class="text-gray-600 mt-2">
+Admin Dashboard
+</p>
+
+</div>
+
+<div>
+
+<a href="/add-book">
+    <button class="gradient text-white rounded-2xl py-5 w-full font-bold text-lg hover:scale-105 transition">
+        ➕ Add Book
+    </button>
+</a>
+</div>
+
+</div>
+
+
+<!-- Cards -->
+
+<div class="grid md:grid-cols-4 gap-6 mt-10">
+
+<div class="glass card rounded-3xl p-6 shadow-lg">
+
+<div class="text-5xl">📚</div>
+
+<p class="text-gray-500 mt-4">
+Total Books
+</p>
+
+<h2 id="books"
+class="text-4xl font-bold text-pink-700 mt-2">
+--
+</h2>
+
+</div>
+
+
+<div class="glass card rounded-3xl p-6 shadow-lg">
+
+<div class="text-5xl">👥</div>
+
+<p class="text-gray-500 mt-4">
+Users
+</p>
+
+<h2 id="users"
+class="text-4xl font-bold text-pink-700 mt-2">
+--
+</h2>
+
+</div>
+
+
+<div class="glass card rounded-3xl p-6 shadow-lg">
+
+<div class="text-5xl">📦</div>
+
+<p class="text-gray-500 mt-4">
+Orders
+</p>
+
+<h2 class="text-4xl font-bold text-pink-700 mt-2">
+0
+</h2>
+
+</div>
+
+
+<div class="glass card rounded-3xl p-6 shadow-lg">
+
+<div class="text-5xl">💰</div>
+
+<p class="text-gray-500 mt-4">
+Revenue
+</p>
+
+<h2 class="text-4xl font-bold text-pink-700 mt-2">
+₹0
+</h2>
+
+</div>
+
+</div>
+
+
+<!-- Quick Actions -->
+
+<div class="glass rounded-3xl shadow-xl mt-10 p-8">
+
+<h2 class="text-2xl font-bold text-gray-800 mb-6">
+Quick Actions
+</h2>
+
+<div class="grid md:grid-cols-3 gap-5">
+
+<button class="gradient text-white rounded-2xl py-5 font-bold text-lg hover:scale-105 transition">
+➕ Add Book
+</button>
+
+<button class="bg-pink-500 text-white rounded-2xl py-5 font-bold text-lg hover:scale-105 transition">
+✏ Edit Book
+</button>
+
+<button class="bg-red-500 text-white rounded-2xl py-5 font-bold text-lg hover:scale-105 transition">
+🗑 Delete Book
+</button>
+
+<a href="/manage-books">
+<button
+class="bg-pink-600 text-white rounded-2xl py-5 w-full font-bold hover:scale-105 transition">
+
+📚 Manage Books
+
+</button>
+</a>
+
+<button class="bg-indigo-600 text-white rounded-2xl py-5 font-bold text-lg hover:scale-105 transition">
+📦 View Orders
+</button>
+
+<a href="/books">
+<button class="bg-emerald-600 text-white rounded-2xl py-5 w-full font-bold text-lg hover:scale-105 transition">
+📖 Browse Books
+</button>
+</a>
+
+<a href="/manage-users">
+<button
+class="bg-purple-600 text-white rounded-2xl py-5 w-full font-bold hover:scale-105 transition">
+
+👥 Manage Users
+
+</button>
+</a>
+</div>
+
+</div>
+
+
+<!-- Recent Activity -->
+
+<div class="glass rounded-3xl shadow-xl mt-10 p-8">
+
+<h2 class="text-2xl font-bold mb-6">
+Recent Activity
+</h2>
+
+<div class="space-y-4">
+
+<div class="bg-pink-50 rounded-xl p-4">
+📚 New books can be managed from here.
+</div>
+
+<div class="bg-purple-50 rounded-xl p-4">
+👤 New users will appear here.
+</div>
+
+<div class="bg-blue-50 rounded-xl p-4">
+📦 Orders will be displayed here.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+async function loadStats(){
+
+    try{
+
+        const res=await fetch("/api/admin/stats");
+
+        const data=await res.json();
+
+        document.getElementById("books").innerHTML=data.books;
+
+        document.getElementById("users").innerHTML=data.users;
+
+    }
+
+    catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+loadStats();
+
+</script>
+
+</body>
+</html>
