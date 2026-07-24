@@ -1,14 +1,14 @@
 import os
 import random
-from fastapi import FastAPI
-from fastapi.middleware.cors import HTMLResponse, RedirectResponse
-from fastapi.responses import FileResponse, JSONResponse
+
+from fastapi import FastAPI, Form, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 from recommend import df, get_book_image, recommend
-from fastapi import Form
-
 from database import conn
-
 
 app = FastAPI(title="Reading Realm AI")
 
@@ -24,7 +24,7 @@ app.add_middleware(
 
 # Set absolute path to frontend directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend"))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 IMAGES_DIR = os.path.join(FRONTEND_DIR, "images")
 
 # Mount /images
