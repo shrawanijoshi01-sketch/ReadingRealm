@@ -1,0 +1,24 @@
+title,author,genre,description,rating,price,image
+Harry Potter and the Sorcerer's Stone,J.K. Rowling,Fantasy,Young wizard begins his magical journey.,4.9,499,images/harry_potter.jpg
+Harry Potter and the Chamber of Secrets,J.K. Rowling,Fantasy,Mystery unfolds at Hogwarts.,4.8,499,images/harry_potter.jpg
+Harry Potter and the Prisoner of Azkaban,J.K. Rowling,Fantasy,Harry uncovers family secrets.,4.9,549,images/harry_potter.jpg
+The Chronicles of Narnia,C.S. Lewis,Fantasy,Children enter a magical kingdom.,4.7,650,images/narnia.jpg
+Peter Pan,J.M. Barrie,Classics,Journey to Neverland.,4.5,299,images/peter_pan.jpg
+Alice in Wonderland,Lewis Carroll,Classics,A whimsical adventure.,4.6,299,images/alice.jpg
+Beauty and the Beast,Disney,Disney,Love breaks a curse.,4.7,250,images/beauty_and_beast.jpg
+Cinderella,Disney,Disney,Classic fairy tale.,4.6,250,images/cinderella.jpg
+The Little Mermaid,Disney,Disney,Dreams beyond the sea.,4.6,300,images/little_mermaid.jpg
+Atomic Habits,James Clear,Self Help,"Small habits, big results.",4.9,599,images/atomic_habits.jpg
+Deep Work,Cal Newport,Self Help,Focused productivity.,4.7,550,images/deep_work.jpg
+Ikigai,Hector Garcia,Self Help,Finding life's purpose.,4.8,499,images/ikigai.jpg
+The Psychology of Money,Morgan Housel,Self Help,Behavior and wealth.,4.9,550,images/psychology_of_money.jpg
+Rich Dad Poor Dad,Robert Kiyosaki,Self Help,Financial mindset.,4.7,450,images/rich_dad_poor_dad.jpg
+The Silent Patient,Alex Michaelides,Mystery,Psychological thriller.,4.7,499,images/silent_patient.jpg
+The Girl on the Train,Paula Hawkins,Mystery,Psychological mystery.,4.6,499,images/the_girl_on_train.jpg
+The Alchemist,Paulo Coelho,Fiction,A shepherd follows his dreams.,4.8,399,images/the_alchemist.jpg
+The Story of My Life,Helen Keller,Biography,Overcoming challenges.,4.8,350,images/the_story_of_my_life.jpg
+Playing It My Way,Sachin Tendulkar,Biography,Cricket legend's story.,4.7,599,images/playing_it_my_way.jpg
+The Diary of a Young Girl,Anne Frank,Biography,Historic wartime diary.,4.9,399,images/anne_frank_diary.jpg
+Einstein: His Life and Universe,Walter Isaacson,Biography,Life of Albert Einstein.,4.8,699,images/einstein.jpg
+Leonardo da Vinci,Walter Isaacson,Biography,Life of the Renaissance genius.,4.7,750,images/leonardo_da_vinci.jpg
+To Kill a Mockingbird,Harper Lee,Fiction,Justice and humanity.,4.9,399,images/to_kill_a_mockingbird.jpg
