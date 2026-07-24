@@ -26,6 +26,13 @@ body{
     backdrop-filter:blur(20px);
     border:1px solid rgba(255,255,255,0.4);
 }
+.glass-card:hover{
+    transform:translateY(-4px);
+    transition:.35s ease;
+    box-shadow:
+        0 35px 70px rgba(177,14,107,0.25),
+        0 12px 35px rgba(120,62,178,0.18);
+}
 </style>
 
 </head>
@@ -59,7 +66,7 @@ body{
                 name="username"
                 required
                 placeholder="Nitin Sharma"
-                class="w-full px-4 py-3 rounded-2xl border border-pink-200 outline-none focus:ring-2 focus:ring-pink-400 bg-white/80">
+                class="w-full px-4 py-3 rounded-2xl border border-pink-200 outline-none focus:ring-2 focus:ring-pink-400 bg-white border-2 border-pink-200 focus:border-pink-500">
         </div>
 
         <div>
