@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, JSONResponse
 from recommend import df, get_book_image, recommend
 from database import conn
 
