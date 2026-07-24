@@ -1,12 +1,12 @@
 import os
 import random
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import HTMLResponse, RedirectResponse
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from recommend import df, get_book_image, recommend
 from fastapi import Form
-from fastapi.responses import RedirectResponse
+
 from database import conn
 
 
