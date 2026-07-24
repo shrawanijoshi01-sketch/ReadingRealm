@@ -24,7 +24,7 @@ app.add_middleware(
 
 # Set absolute path to frontend directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend"))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 IMAGES_DIR = os.path.join(FRONTEND_DIR, "images")
 
 # Mount /images
