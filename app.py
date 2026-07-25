@@ -1,18 +1,17 @@
 import os
 import random
+from pathlib import Path
 
 from fastapi import FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
-
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, JSONResponse
-from recommend import df, get_book_image, recommend
-from database import conn
+from fastapi.responses import FileResponse, RedirectResponse, JSONResponse
 
 app = FastAPI(title="Reading Realm AI")
 
-users = {}
+print("=" * 60)
+print(__file__)
+print("=" * 60)
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,34 +21,112 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Set absolute path to frontend directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+# ----------------------------------------------------
+# 1. Absolute Paths & Static Directory Setup
+# ----------------------------------------------------
+CURRENT_FILE = Path(__file__).resolve()
+BACKEND_DIR = CURRENT_FILE.parent
+PROJECT_ROOT = BACKEND_DIR.parent
+
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
 IMAGES_DIR = os.path.join(FRONTEND_DIR, "images")
 
-# Mount /images
-if os.path.exists(IMAGES_DIR):
-    app.mount("/images", StaticFiles(directory=IMAGES_DIR), name="images")
+# Debugging terminal output
+print("=" * 60)
+print(f"DEBUG: FRONTEND_DIR resolved to:\n -> {FRONTEND_DIR}")
+print(f"DEBUG: Does register.html exist here?\n -> {os.path.exists(os.path.join(FRONTEND_DIR, 'register.html'))}")
+print("=" * 60)
 
-# Home Page
-# Home Page
+# Mount images directory safely
+os.makedirs(IMAGES_DIR, exist_ok=True)
+app.mount("/images", StaticFiles(directory=IMAGES_DIR), name="images")
+
+# ----------------------------------------------------
+# 2. Safe Database & Recommendation Imports
+# ----------------------------------------------------
+try:
+    from backend.recommend import df, get_book_image, recommend
+    print("✅ Successfully imported recommend script")
+except Exception as e:
+    print(f"❌ ERROR importing backend.recommend: {e}")
+
+try:
+    from backend.database import conn
+    print("✅ Successfully connected to Database")
+except Exception as e:
+    print(f"❌ ERROR importing backend.database: {e}")
+
+# ----------------------------------------------------
+# 3. Frontend HTML Page Serving Routes
+# ----------------------------------------------------
 @app.get("/")
 def home():
-    return FileResponse(
-        os.path.join(FRONTEND_DIR, "register.html"),
-        headers={"Cache-Control": "no-cache"}
-    )
-# Browse Books Page
+    register_path = os.path.join(FRONTEND_DIR, "register.html")
+    
+    if not os.path.exists(register_path):
+        return JSONResponse(
+            status_code=404,
+            content={
+                "error": "register.html NOT FOUND!",
+                "looking_at": register_path,
+                "project_root": str(PROJECT_ROOT),
+                "frontend_dir_exists": os.path.exists(FRONTEND_DIR)
+            }
+        )
+        
+    return FileResponse(register_path, headers={"Cache-Control": "no-cache"})
+
 @app.get("/books")
 def books():
     return FileResponse(os.path.join(FRONTEND_DIR, "books.html"))
 
-# Recommendation API
+@app.get("/book_details")
+def book_details():
+    return FileResponse(os.path.join(FRONTEND_DIR, "book_details.html"))
+
+@app.get("/register")
+def register_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "register.html"))
+
+@app.get("/login")
+def login_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "login.html"))
+
+@app.get("/index")
+def index_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+@app.get("/admin")
+def admin_dashboard():
+    return FileResponse(os.path.join(FRONTEND_DIR, "admin.html"))
+
+@app.get("/add-book")
+def add_book_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "add_book.html"))
+
+@app.get("/manage-books")
+def manage_books():
+    return FileResponse(os.path.join(FRONTEND_DIR, "manage_books.html"))
+
+@app.get("/edit-book/{book_id}")
+def edit_book_page(book_id: int):
+    return FileResponse(os.path.join(FRONTEND_DIR, "edit_book.html"))
+
+@app.get("/manage-users")
+def manage_users():
+    return FileResponse(os.path.join(FRONTEND_DIR, "manage_users.html"))
+
+@app.get("/order_success")
+def order_success():
+    return FileResponse(os.path.join(FRONTEND_DIR, "order_success.html"))
+
+# ----------------------------------------------------
+# 4. REST APIs
+# ----------------------------------------------------
 @app.get("/recommend/{book_name}")
 def get_recommendations(book_name: str):
     return recommend(book_name)
 
-# 1. Full Books Catalog API
 @app.get("/api/catalog")
 def get_catalog():
     catalog = []
@@ -65,7 +142,6 @@ def get_catalog():
         catalog.append(book_dict)
     return catalog
 
-# 2. Checkout & Order Placement API
 @app.post("/api/checkout")
 def checkout(order: dict):
     items = order.get("items", [])
@@ -79,33 +155,6 @@ def checkout(order: dict):
         "item_count": len(items),
         "message": "Order placed successfully!"
     }
-@app.get("/book_details")
-def book_details():
-    return FileResponse(os.path.join(FRONTEND_DIR, "book_details.html"))
-
-
-# --------------------------
-# Pages
-# --------------------------
-
-@app.get("/register")
-def register_page():
-    return FileResponse(os.path.join(FRONTEND_DIR, "register.html"))
-
-
-@app.get("/login")
-def login_page():
-    return FileResponse(os.path.join(FRONTEND_DIR, "login.html"))
-
-
-@app.get("/index")
-def index_page():
-    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
-
-
-# --------------------------
-# Register API
-# --------------------------
 
 @app.post("/register")
 def register(
@@ -114,21 +163,12 @@ def register(
     password: str = Form(...)
 ):
     cur = conn.cursor()
-
-    # Check if email already exists
-    cur.execute(
-        "SELECT * FROM users WHERE email=%s",
-        (email,)
-    )
+    cur.execute("SELECT * FROM users WHERE email=%s", (email,))
 
     if cur.fetchone():
         cur.close()
-        return {
-            "success": False,
-            "message": "Email already exists"
-        }
+        return {"success": False, "message": "Email already exists"}
 
-    # Insert new user
     cur.execute(
         """
         INSERT INTO users (username, email, password, name, role)
@@ -139,16 +179,7 @@ def register(
 
     conn.commit()
     cur.close()
-
-    return {
-        "success": True,
-        "message": "Registration Successful"
-    }
-#----------------
-# Login API
-# --------------------------
-
-from fastapi.responses import JSONResponse
+    return {"success": True, "message": "Registration Successful"}
 
 @app.post("/login")
 def login(
@@ -156,7 +187,6 @@ def login(
     password: str = Form(...)
 ):
     cur = conn.cursor()
-
     cur.execute(
         """
         SELECT username, role
@@ -171,15 +201,11 @@ def login(
 
     if not user:
         return JSONResponse(
-            {
-                "success": False,
-                "message": "Invalid email or password"
-            },
+            {"success": False, "message": "Invalid email or password"},
             status_code=401
         )
 
     username, role = user
-
     return {
         "success": True,
         "message": "Login Successful",
@@ -188,43 +214,22 @@ def login(
         "redirect": "/admin" if role == "admin" else "/index"
     }
 
-@app.get("/admin")
-def admin_dashboard():
-    cur = conn.cursor()
-
-    # Total Books
-    cur.execute("SELECT COUNT(*) FROM books")
-    total_books = cur.fetchone()[0]
-
-    # Total Users
-    cur.execute("SELECT COUNT(*) FROM users")
-    total_users = cur.fetchone()[0]
-
-    cur.close()
-
-    return FileResponse(os.path.join(FRONTEND_DIR, "admin.html"))
 @app.get("/api/admin/stats")
 def admin_stats():
-
     cur = conn.cursor()
-
     cur.execute("SELECT COUNT(*) FROM books")
-    books = cur.fetchone()[0]
+    books_count = cur.fetchone()[0]
 
     cur.execute("SELECT COUNT(*) FROM users")
-    users = cur.fetchone()[0]
-
+    users_count = cur.fetchone()[0]
     cur.close()
 
     return {
-        "books": books,
-        "users": users,
+        "books": books_count,
+        "users": users_count,
         "orders": 0,
         "revenue": 0
     }
-@app.get("/add-book")
-def add_book_page():
-    return FileResponse(os.path.join(FRONTEND_DIR, "add_book.html"))
 
 @app.post("/api/add-book")
 def add_book(
@@ -237,44 +242,24 @@ def add_book(
     image: str = Form(...)
 ):
     cur = conn.cursor()
-
     cur.execute("""
-        INSERT INTO books
-        (title, author, genre, description, rating, price, image)
+        INSERT INTO books (title, author, genre, description, rating, price, image)
         VALUES (%s,%s,%s,%s,%s,%s,%s)
-    """,
-    (title, author, genre, description, rating, price, image))
+    """, (title, author, genre, description, rating, price, image))
 
     conn.commit()
     cur.close()
+    return {"success": True, "message": "Book Added Successfully!"}
 
-    return {
-        "success": True,
-        "message": "Book Added Successfully!"
-    }
-@app.get("/manage-books")
-def manage_books():
-    return FileResponse(os.path.join(FRONTEND_DIR, "manage_books.html"))
 @app.get("/api/manage-books")
 def get_all_books():
-
     cur = conn.cursor()
-
     cur.execute("""
-        SELECT
-        id,
-        title,
-        author,
-        genre,
-        rating,
-        price,
-        image
+        SELECT id, title, author, genre, rating, price, image
         FROM books
         ORDER BY id DESC
     """)
-
     books = cur.fetchall()
-
     cur.close()
 
     return [
@@ -290,23 +275,16 @@ def get_all_books():
         for b in books
     ]
 
-@app.get("/edit-book/{book_id}")
-def edit_book_page(book_id: int):
-    return FileResponse(os.path.join(FRONTEND_DIR, "edit_book.html"))
-
 @app.get("/api/book/{book_id}")
 def get_book(book_id: int):
-
     cur = conn.cursor()
-
     cur.execute("""
-        SELECT id,title,author,genre,description,rating,price,image
+        SELECT id, title, author, genre, description, rating, price, image
         FROM books
         WHERE id=%s
-    """,(book_id,))
+    """, (book_id,))
 
     book = cur.fetchone()
-
     cur.close()
 
     if not book:
@@ -334,95 +312,46 @@ def update_book(
     price: int = Form(...),
     image: str = Form(...)
 ):
-
     cur = conn.cursor()
-
     cur.execute("""
         UPDATE books
-        SET
-            title=%s,
-            author=%s,
-            genre=%s,
-            description=%s,
-            rating=%s,
-            price=%s,
-            image=%s
+        SET title=%s, author=%s, genre=%s, description=%s, rating=%s, price=%s, image=%s
         WHERE id=%s
-    """,
-    (title,author,genre,description,rating,price,image,book_id))
+    """, (title, author, genre, description, rating, price, image, book_id))
 
     conn.commit()
-
     cur.close()
-
-    return {
-        "success": True,
-        "message": "Book Updated Successfully"
-    }
-
-@app.get("/manage-users")
-def manage_users():
-    return FileResponse(os.path.join(FRONTEND_DIR, "manage_users.html"))
+    return {"success": True, "message": "Book Updated Successfully"}
 
 @app.get("/api/manage-users")
 def get_users():
-
     cur = conn.cursor()
-
-    cur.execute("""
-        SELECT id, username, email, role
-        FROM users
-        ORDER BY id
-    """)
-
+    cur.execute("SELECT id, username, email, role FROM users ORDER BY id")
     rows = cur.fetchall()
-
     cur.close()
 
     return [
-        {
-            "id": row[0],
-            "username": row[1],
-            "email": row[2],
-            "role": row[3]
-        }
+        {"id": row[0], "username": row[1], "email": row[2], "role": row[3]}
         for row in rows
     ]
 
-
 @app.delete("/api/delete-user/{user_id}")
 def delete_user(user_id: int):
-
     cur = conn.cursor()
-
-    cur.execute(
-        "DELETE FROM users WHERE id=%s",
-        (user_id,)
-    )
-
+    cur.execute("DELETE FROM users WHERE id=%s", (user_id,))
     conn.commit()
-
     cur.close()
 
-    return {
-        "success": True,
-        "message": "User deleted successfully"
-    }
+    return {"success": True, "message": "User deleted successfully"}
+
 @app.post("/api/place-order")
 def place_order(
     user_id: int = Form(...),
     book_id: int = Form(...),
     quantity: int = Form(...)
 ):
-
     cur = conn.cursor()
-
-    # Get price
-    cur.execute(
-        "SELECT price FROM books WHERE id=%s",
-        (book_id,)
-    )
-
+    cur.execute("SELECT price FROM books WHERE id=%s", (book_id,))
     book = cur.fetchone()
 
     if not book:
@@ -440,30 +369,18 @@ def place_order(
     conn.commit()
     cur.close()
 
-    return {
-        "success": True,
-        "message": "Order Placed Successfully!"
-    }
+    return {"success": True, "message": "Order Placed Successfully!"}
 
 @app.get("/api/orders")
 def get_orders():
-
     cur = conn.cursor()
-
     cur.execute("""
-        SELECT
-            o.id,
-            u.username,
-            b.title,
-            o.quantity,
-            o.total,
-            o.status
+        SELECT o.id, u.username, b.title, o.quantity, o.total, o.status
         FROM orders o
         JOIN users u ON o.user_id = u.id
         JOIN books b ON o.book_id = b.id
         ORDER BY o.id DESC
     """)
-
     rows = cur.fetchall()
     cur.close()
 
@@ -478,13 +395,9 @@ def get_orders():
         }
         for r in rows
     ]
-@app.get("/order_success", response_class=HTMLResponse)
-def order_success(request: Request):
-    return templates.TemplateResponse(
-        "order_success.html",
-        {"request": request}
-    )
+
 @app.get("/logout")
 def logout(request: Request):
-    request.session.clear()
+    if hasattr(request, "session"):
+        request.session.clear()
     return RedirectResponse("/login")
