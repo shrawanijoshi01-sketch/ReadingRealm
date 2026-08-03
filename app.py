@@ -1,7 +1,8 @@
 import os
 import random
 from pathlib import Path
-
+from backend.recommend import df, get_book_image, recommend
+from backend.database import conn
 from fastapi import FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
